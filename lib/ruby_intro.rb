@@ -76,8 +76,23 @@ class BookInStock
 # or if the price is less than or equal to zero. Include the proper getters and setters for these attributes.
 # Include a method price_as_string that returns the price of the book formatted with a leading dollar sign and two decimal places, that is, a price of 20
 # should format as "$20.00" and a price of 33.8 should format as "$33.80".
+  attr_accessor :isbn
+  attr_accessor :price  #Hace al atributo price y isbn leíble y escribible
+  
   def initialize(isbn, price)
     @isbn = isbn
     @price = price 
+    if @isbn.empty?
+      raise ArgumentError.new("Incorrect ISBN")
+    end
+    if @price <= 0
+      raise ArgumentError.new("Price not valid")
+    end
+  end
+  
+  def price_as_string
+    pri=@price.round(2)
+    pr="$" + "#{'%.02f' % pri.to_s}"
+    pr
   end
 end
